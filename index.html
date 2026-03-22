@@ -5,7 +5,25 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   <style>
-    body {
+    body 
+    
+    <div id="login">
+
+  <h2>Nosso espaço 💛</h2>
+
+  <input type="password" id="senhaInput" placeholder="Digite a senha"
+    style="padding:10px; border-radius:10px; border:none;">
+
+  <br><br>
+
+  <button onclick="verificarSenha()">Entrar</button>
+
+  <p id="erro" style="color:red;"></p>
+
+</div>
+
+<div id="conteudo" class="hidden">
+    {
       background: black;
       color: white;
       text-align: center;
@@ -63,7 +81,10 @@ if (senha !== "1206") {
 
       <h2>Escolha sua massagem 😏</h2>
 
-      <button onclick="escolha('Ombro')">Ombro</button>
+      <button onclick="escolha('Ombro')">No ombro</button>
+      <button onclick="escolha('Ombro')">Nas costas</button>
+      <button onclick="escolha('Ombro')">Nos pés</button>
+      <button onclick="escolha('Ombro')">Nas mãos</button>
       <button onclick="escolha('Completa')">Completa</button>
       <button onclick="escolha('Relaxante')">Relaxante</button>
       <button onclick="escolha('Surpresa')">Surpresa 😈</button>
@@ -85,7 +106,7 @@ if (senha !== "1206") {
 
 <script>
 // CONTADOR
-const inicio = new Date("2023-05-09"); // MUDA PRA DATA DE VOCÊS
+const inicio = new Date("2024-05-09"); // MUDA PRA DATA DE VOCÊS
 const hoje = new Date();
 const dias = Math.floor((hoje - inicio) / (1000 * 60 * 60 * 24));
 
@@ -113,13 +134,26 @@ function voltar() {
 function escolha(tipo) {
   let numero = "5511963527566"; // COLOCA SEU NÚMERO AQUI
 
-  let mensagem = "Oi minha vida, meu amor maior do mundo todo ❤️ quero uma massagem: " + tipo + " 😏";
+  let mensagem = "Oi minha vida, meu amor maior do mundo todo! Quelo uma massagem: " + tipo;
 
   let url = "https://wa.me/" + numero + "?text=" + encodeURIComponent(mensagem);
 
   window.open(url, "_blank");
 }
 </script>
+</div> <!-- fecha conteudo -->
 
+<script>
+function verificarSenha() {
+  let senha = document.getElementById("senhaInput").value;
+
+  if (senha === "1234") {
+    document.getElementById("login").style.display = "none";
+    document.getElementById("conteudo").classList.remove("hidden");
+  } else {
+    document.getElementById("erro").innerText = "Senha incorreta 😢";
+  }
+}
+</script>
 </body>
 </html>
