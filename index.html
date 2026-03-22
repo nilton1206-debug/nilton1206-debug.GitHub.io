@@ -5,99 +5,116 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   <style>
-    body 
-    
-    <div id="login">
-
-  <h2>Nosso espaço 💛</h2>
-
-  <input type="password" id="senhaInput" placeholder="Digite a senha"
-    style="padding:10px; border-radius:10px; border:none;">
-
-  <br><br>
-
-  <button onclick="verificarSenha()">Entrar</button>
-
-  <p id="erro" style="color:red;"></p>
-
-</div>
-
-<div id="conteudo" class="hidden">
-    {
+    body {
       background: black;
       color: white;
-      text-align: center;
       font-family: Arial;
-      padding: 30px;
+      text-align: center;
+      padding: 20px;
     }
 
     button {
-      padding: 15px;
-      margin: 10px;
+      padding: 12px;
+      margin: 8px;
       border: none;
-      border-radius: 12px;
-      font-size: 16px;
-      cursor: pointer;
-      width: 80%;
-      max-width: 300px;
+      border-radius: 10px;
       background: #ff4d6d;
       color: white;
+      cursor: pointer;
+    }
+
+    input {
+      padding: 10px;
+      margin: 5px;
+      border-radius: 8px;
+      border: none;
     }
 
     .hidden {
       display: none;
+    }
+
+    .card {
+      background: #1a1a1a;
+      padding: 15px;
+      margin: 10px;
+      border-radius: 15px;
     }
   </style>
 </head>
 
 <body>
 
-<script>
-let senha = prompt("Digite a senha 💛");
-
-if (senha !== "1206") {
-  document.body.innerHTML = "<h1>Acesso negado 😢</h1>";
-}
-</script>
-
-<div id="home">
-
-  <h1>Nilton ❤️ Isabella</h1>
-
-  <p id="contador"></p>
-
-  <button onclick="mensagem()">💌 Mensagem</button>
-  <button onclick="abrirMassagem()">💆‍♀️ Relaxar</button>
-
+<!-- LOGIN -->
+<div id="login">
+  <h2>Nosso espaço 💛</h2>
+  <input type="password" id="senhaInput" placeholder="Digite a senha">
+  <br>
+  <button onclick="verificarSenha()">Entrar</button>
+  <p id="erro" style="color:red;"></p>
 </div>
 
-<!-- TELA DE MASSAGEM -->
-<div id="massagem" class="hidden">
+<!-- CONTEÚDO -->
+<div id="conteudo" class="hidden">
 
-  <div style="display: flex; flex-direction: row; align-items: center; justify-content: center; gap: 20px; flex-wrap: wrap;">
+  <!-- HOME -->
+  <div id="home">
 
-    <!-- ESQUERDA -->
-    <div style="min-width: 250px;">
+    <h1>Nilton ❤️ Isabella</h1>
 
-      <h2>Escolha sua massagem 😏</h2>
+    <img src="foto.jpg" style="width:200px; border-radius:20px;">
 
-      <button onclick="escolha('Ombro')">No ombro</button>
-      <button onclick="escolha('Ombro')">Nas costas</button>
-      <button onclick="escolha('Ombro')">Nos pés</button>
-      <button onclick="escolha('Ombro')">Nas mãos</button>
-      <button onclick="escolha('Completa')">Completa</button>
-      <button onclick="escolha('Relaxante')">Relaxante</button>
-      <button onclick="escolha('Surpresa')">Surpresa 😈</button>
+    <p id="contador"></p>
 
+    <button onclick="mostrarMensagem()">💌 Mensagem</button>
+    <button onclick="abrirMassagem()">💆‍♀️ Relaxar</button>
+    <button onclick="verHistorico()">📜 Histórico</button>
+
+    <div id="mensagemBox"></div>
+    <div id="historico"></div>
+
+    <!-- CALENDÁRIO -->
+    <div class="card">
+      <h3>📅 Compromissos</h3>
+      <input type="date" id="data">
+      <input type="text" id="evento" placeholder="O que vamos fazer?">
       <br>
-      <button onclick="voltar()">⬅️ Voltar</button>
-
+      <button onclick="salvarEvento()">Salvar</button>
+      <div id="listaEventos"></div>
     </div>
 
-    <!-- DIREITA -->
-    <div>
-      <img src="https://images.unsplash.com/photo-1544161515-4ab6ce6db874"
-           style="width: 300px; border-radius: 15px;">
+    <!-- METAS -->
+    <div class="card">
+      <h3>🎯 Metas</h3>
+      <input type="text" id="meta" placeholder="Ex: viajar juntos">
+      <button onclick="addMeta()">Adicionar</button>
+      <div id="metas"></div>
+    </div>
+
+  </div>
+
+  <!-- MASSAGEM -->
+  <div id="massagem" class="hidden">
+
+    <div style="display:flex; flex-wrap:wrap; justify-content:center; gap:20px;">
+
+      <div>
+        <h2>Escolha sua massagem 😏</h2>
+
+        <button onclick="escolha('Ombro')">Ombro</button>
+        <button onclick="escolha('Completa')">Completa</button>
+        <button onclick="escolha('Relaxante')">Relaxante</button>
+        <button onclick="escolha('Surpresa')">Surpresa 😈</button>
+
+        <br>
+        <button onclick="voltar()">⬅️ Voltar</button>
+      </div>
+
+      <div>
+        <img src="https://images.unsplash.com/photo-1544161515-4ab6ce6db874"
+             style="width:300px; border-radius:15px;">
+      </div>
+
     </div>
 
   </div>
@@ -105,55 +122,131 @@ if (senha !== "1206") {
 </div>
 
 <script>
-// CONTADOR
-const inicio = new Date("2024-05-09"); // MUDA PRA DATA DE VOCÊS
-const hoje = new Date();
-const dias = Math.floor((hoje - inicio) / (1000 * 60 * 60 * 24));
 
-document.getElementById("contador").innerText =
-"Estamos juntos há " + dias + " dias ❤️";
-
-// MENSAGEM
-function mensagem() {
-  alert("Você é a minha pessoa mais importante nesse mundo inteiro!!");
-}
-
-// ABRIR TELA MASSAGEM
-function abrirMassagem() {
-  document.getElementById("home").classList.add("hidden");
-  document.getElementById("massagem").classList.remove("hidden");
-}
-
-// VOLTAR
-function voltar() {
-  document.getElementById("massagem").classList.add("hidden");
-  document.getElementById("home").classList.remove("hidden");
-}
-
-// ENVIAR WHATSAPP
-function escolha(tipo) {
-  let numero = "5511963527566"; // COLOCA SEU NÚMERO AQUI
-
-  let mensagem = "Oi minha vida, meu amor maior do mundo todo! Quelo uma massagem: " + tipo;
-
-  let url = "https://wa.me/" + numero + "?text=" + encodeURIComponent(mensagem);
-
-  window.open(url, "_blank");
-}
-</script>
-</div> <!-- fecha conteudo -->
-
-<script>
+// LOGIN
 function verificarSenha() {
   let senha = document.getElementById("senhaInput").value;
 
-  if (senha === "1234") {
+  if (senha === "1206") {
     document.getElementById("login").style.display = "none";
     document.getElementById("conteudo").classList.remove("hidden");
   } else {
     document.getElementById("erro").innerText = "Senha incorreta 😢";
   }
 }
+
+// CONTADOR
+const inicio = new Date("2024-05-09");
+const hoje = new Date();
+const dias = Math.floor((hoje - inicio) / (1000 * 60 * 60 * 24));
+document.getElementById("contador").innerText =
+"Estamos juntos há " + dias + " dias ❤️";
+
+// MENSAGEM BONITA
+function mostrarMensagem() {
+  document.getElementById("mensagemBox").innerHTML =
+  "<div class='card'>Você é a melhor parte dos meus dias ❤️</div>";
+}
+
+// NAVEGAÇÃO
+function abrirMassagem() {
+  document.getElementById("home").classList.add("hidden");
+  document.getElementById("massagem").classList.remove("hidden");
+}
+
+function voltar() {
+  document.getElementById("massagem").classList.add("hidden");
+  document.getElementById("home").classList.remove("hidden");
+}
+
+// MASSAGEM + WHATSAPP + HISTÓRICO
+function escolha(tipo) {
+  let historico = JSON.parse(localStorage.getItem("massagens")) || [];
+
+  historico.push(tipo + " - " + new Date().toLocaleString());
+
+  localStorage.setItem("massagens", JSON.stringify(historico));
+
+  let numero = "5511963527566"; // COLOCA SEU NÚMERO
+
+  let mensagem = "Oi amor da minha vida 💛 quero uma massagem: " + tipo;
+
+  let url = "https://wa.me/" + numero + "?text=" + encodeURIComponent(mensagem);
+
+  window.open(url, "_blank");
+}
+
+// HISTÓRICO
+function verHistorico() {
+  let historico = JSON.parse(localStorage.getItem("massagens")) || [];
+
+  let html = "<div class='card'><h3>Histórico 💆‍♀️</h3>";
+
+  historico.forEach(item => {
+    html += "<p>" + item + "</p>";
+  });
+
+  html += "</div>";
+
+  document.getElementById("historico").innerHTML = html;
+}
+
+// CALENDÁRIO
+function salvarEvento() {
+  let data = document.getElementById("data").value;
+  let evento = document.getElementById("evento").value;
+
+  let eventos = JSON.parse(localStorage.getItem("eventos")) || [];
+
+  eventos.push(data + " - " + evento);
+
+  localStorage.setItem("eventos", JSON.stringify(eventos));
+
+  mostrarEventos();
+}
+
+function mostrarEventos() {
+  let eventos = JSON.parse(localStorage.getItem("eventos")) || [];
+
+  let html = "";
+
+  eventos.forEach(e => {
+    html += "<p>" + e + "</p>";
+  });
+
+  document.getElementById("listaEventos").innerHTML = html;
+}
+
+// METAS
+function addMeta() {
+  let meta = document.getElementById("meta").value;
+
+  let metas = JSON.parse(localStorage.getItem("metas")) || [];
+
+  metas.push(meta);
+
+  localStorage.setItem("metas", JSON.stringify(metas));
+
+  mostrarMetas();
+}
+
+function mostrarMetas() {
+  let metas = JSON.parse(localStorage.getItem("metas")) || [];
+
+  let html = "";
+
+  metas.forEach(m => {
+    html += "<p>✔️ " + m + "</p>";
+  });
+
+  document.getElementById("metas").innerHTML = html;
+}
+
+// INICIALIZA
+mostrarEventos();
+mostrarMetas();
+
 </script>
+
 </body>
 </html>
