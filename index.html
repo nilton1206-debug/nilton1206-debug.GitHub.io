@@ -53,11 +53,12 @@ if (senha !== "1234") {
 
 </div>
 
+<!-- TELA DE MASSAGEM -->
 <div id="massagem" class="hidden">
 
   <div style="display: flex; flex-direction: row; align-items: center; justify-content: center; gap: 20px; flex-wrap: wrap;">
 
-    <!-- LADO ESQUERDO -->
+    <!-- ESQUERDA -->
     <div style="min-width: 250px;">
 
       <h2>Escolha sua massagem 😏</h2>
@@ -72,7 +73,7 @@ if (senha !== "1234") {
 
     </div>
 
-    <!-- LADO DIREITO -->
+    <!-- DIREITA -->
     <div>
       <img src="https://images.unsplash.com/photo-1544161515-4ab6ce6db874"
            style="width: 300px; border-radius: 15px;">
@@ -82,42 +83,41 @@ if (senha !== "1234") {
 
 </div>
 
-  <h2>Escolha sua massagem 😏</h2>
-
-  <button onclick="escolha('Ombro')">Ombro</button>
-  <button onclick="escolha('Completa')">Completa</button>
-  <button onclick="escolha('Relaxante')">Relaxante</button>
-  <button onclick="escolha('Surpresa')">Surpresa 😈</button>
-
-  <br>
-  <button onclick="voltar()">⬅️ Voltar</button>
-
-</div>
-
 <script>
-// contador
-const inicio = new Date("2023-01-01");
+// CONTADOR
+const inicio = new Date("2023-01-01"); // MUDA PRA DATA DE VOCÊS
 const hoje = new Date();
 const dias = Math.floor((hoje - inicio) / (1000 * 60 * 60 * 24));
+
 document.getElementById("contador").innerText =
 "Estamos juntos há " + dias + " dias ❤️";
 
+// MENSAGEM
 function mensagem() {
   alert("Você é a melhor parte dos meus dias ❤️");
 }
 
+// ABRIR TELA MASSAGEM
 function abrirMassagem() {
   document.getElementById("home").classList.add("hidden");
   document.getElementById("massagem").classList.remove("hidden");
 }
 
+// VOLTAR
 function voltar() {
   document.getElementById("massagem").classList.add("hidden");
   document.getElementById("home").classList.remove("hidden");
 }
 
+// ENVIAR WHATSAPP
 function escolha(tipo) {
-  alert("Massagem " + tipo + " escolhida 😏");
+  let numero = "5511999999999"; // COLOCA SEU NÚMERO AQUI
+
+  let mensagem = "Oi amor 💛 quero uma massagem: " + tipo + " 😏";
+
+  let url = "https://wa.me/" + numero + "?text=" + encodeURIComponent(mensagem);
+
+  window.open(url, "_blank");
 }
 </script>
 
