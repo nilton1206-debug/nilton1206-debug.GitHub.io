@@ -3,58 +3,94 @@
 <head>
   <title>Nosso Espaço ❤️</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <style>
+    body {
+      background: black;
+      color: white;
+      text-align: center;
+      font-family: Arial;
+      padding: 30px;
+    }
+
+    button {
+      padding: 15px;
+      margin: 10px;
+      border: none;
+      border-radius: 12px;
+      font-size: 16px;
+      cursor: pointer;
+      width: 80%;
+      max-width: 300px;
+      background: #ff4d6d;
+      color: white;
+    }
+
+    .hidden {
+      display: none;
+    }
+  </style>
 </head>
 
-<body style="background:black; color:white; text-align:center; font-family:Arial; padding:30px;">
+<body>
 
 <script>
 let senha = prompt("Digite a senha 💛");
 
 if (senha !== "1234") {
   document.body.innerHTML = "<h1>Acesso negado 😢</h1>";
-} else {
-  document.body.innerHTML = `
-    <h1>Nilton ❤️ Amor</h1>
+}
+</script>
 
-    <p id="contador"></p>
+<div id="home">
 
-    <button onclick="mensagem()" style="padding:15px; margin:10px;">
-    💌 Mensagem
-    </button>
+  <h1>Nilton ❤️ Amor</h1>
 
-    <br>
+  <p id="contador"></p>
 
-    <button onclick="massagem()" style="padding:15px; margin:10px;">
-    💆‍♀️ Quero massagem
-    </button>
-  `;
+  <button onclick="mensagem()">💌 Mensagem</button>
+  <button onclick="abrirMassagem()">💆‍♀️ Relaxar</button>
 
-  const inicio = new Date("2023-01-01");
-  const hoje = new Date();
-  const dias = Math.floor((hoje - inicio) / (1000 * 60 * 60 * 24));
+</div>
 
-  document.getElementById("contador").innerText =
-  "Estamos juntos há " + dias + " dias ❤️";
+<div id="massagem" class="hidden">
 
-  function mensagem() {
-    alert("Você é a melhor parte dos meus dias ❤️");
-  }
+  <h2>Escolha sua massagem 😏</h2>
 
-  function massagem() {
-    let tipo = prompt("Escolha 😏\n1- Ombro\n2- Completa\n3- Relaxante\n4- Surpresa");
+  <button onclick="escolha('Ombro')">Ombro</button>
+  <button onclick="escolha('Completa')">Completa</button>
+  <button onclick="escolha('Relaxante')">Relaxante</button>
+  <button onclick="escolha('Surpresa')">Surpresa 😈</button>
 
-    if (tipo == "1") {
-      alert("Massagem nos ombros agendada 😌");
-    } else if (tipo == "2") {
-      alert("Massagem completa 😏 Prepare-se...");
-    } else if (tipo == "3") {
-      alert("Modo relax ativado 💆‍♀️");
-    } else if (tipo == "4") {
-      alert("Surpresa aceita 😈");
-    } else {
-      alert("Escolhe direito depois 😅");
-    }
-  }
+  <br>
+  <button onclick="voltar()">⬅️ Voltar</button>
+
+</div>
+
+<script>
+// contador
+const inicio = new Date("2023-01-01");
+const hoje = new Date();
+const dias = Math.floor((hoje - inicio) / (1000 * 60 * 60 * 24));
+document.getElementById("contador").innerText =
+"Estamos juntos há " + dias + " dias ❤️";
+
+function mensagem() {
+  alert("Você é a melhor parte dos meus dias ❤️");
+}
+
+function abrirMassagem() {
+  document.getElementById("home").classList.add("hidden");
+  document.getElementById("massagem").classList.remove("hidden");
+}
+
+function voltar() {
+  document.getElementById("massagem").classList.add("hidden");
+  document.getElementById("home").classList.remove("hidden");
+}
+
+function escolha(tipo) {
+  alert("Massagem " + tipo + " escolhida 😏");
 }
 </script>
 
